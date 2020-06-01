@@ -5,6 +5,7 @@ import com.bobocode.dao.CompanyDaoImpl;
 import com.bobocode.model.Company;
 import com.bobocode.model.Product;
 import com.bobocode.util.EntityManagerUtil;
+import lombok.var;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.AfterAll;

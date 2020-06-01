@@ -24,18 +24,30 @@ import java.util.List;
  * - configure one to many relationship as mapped on the child side
  */
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
+@Entity
+@Table(name = "company")
 public class Company {
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(name = "name",nullable = false)
     private String name;
+
+    @Setter(AccessLevel.PRIVATE)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
-        throw new UnsupportedOperationException("I'm still not implemented!");
+        products.add(product);
+        product.setCompany(this);
     }
 
     public void removeProduct(Product product) {
-        throw new UnsupportedOperationException("I'm still not implemented!");
+        products.remove(product);
+        product.setCompany(null);
     }
 }

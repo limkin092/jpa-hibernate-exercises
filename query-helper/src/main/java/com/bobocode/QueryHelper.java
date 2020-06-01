@@ -30,7 +30,21 @@ public class QueryHelper {
      * @param <T>                   generic type that allows to specify single entity class of some collection
      * @return query result specified by type T
      */
+
     public <T> T readWithinTx(Function<EntityManager, T> entityManagerConsumer) {
-        throw new UnsupportedOperationException("I'm waiting for you to do your job and make me work ;)"); // todo:
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        T result;
+
+        try{
+            result = entityManagerConsumer.apply(entityManager);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            throw new QueryHelperException("Transaction is rolled back",e);
+        } finally{
+            entityManager.close();
+        }
+        return result;
     }
 }

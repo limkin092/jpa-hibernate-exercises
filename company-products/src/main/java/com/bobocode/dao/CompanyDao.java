@@ -2,7 +2,7 @@ package com.bobocode.dao;
 
 import com.bobocode.model.Company;
 
-public interface CompanyDao {
+public interface CompanyDao{
     /**
      * Retrieves a {@link Company} with all its products by company id
      *
